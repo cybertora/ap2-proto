@@ -3,7 +3,7 @@ syntax = "proto3";
 package order;
 
 // ВАЖНО: замените YOUR_GITHUB_USER на ваш реальный GitHub username
-option go_package = "github.com/YOUR_GITHUB_USER/ap2-proto-generated/order";
+option go_package = "github.com/cybertora/ap2-proto-generated/order";
 
 import "google/protobuf/timestamp.proto";
 
