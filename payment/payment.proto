@@ -1,0 +1,31 @@
+syntax = "proto3";
+
+package payment;
+
+// ВАЖНО: замените YOUR_GITHUB_USER на ваш реальный GitHub username
+option go_package = "github.com/cybertora/ap2-proto-generated/payment";
+
+import "google/protobuf/timestamp.proto";
+
+// PaymentService — сервис обработки платежей.
+// Payment Service выступает gRPC-сервером.
+service PaymentService {
+  // ProcessPayment авторизует платёж для указанного заказа.
+  rpc ProcessPayment(PaymentRequest) returns (PaymentResponse);
+}
+
+// PaymentRequest — запрос на обработку платежа.
+message PaymentRequest {
+  string order_id = 1;  // UUID заказа
+  int64  amount   = 2;  // Сумма в центах (int64, никогда float!)
+}
+
+// PaymentResponse — результат обработки платежа.
+message PaymentResponse {
+  string                    id             = 1;  // UUID платежа
+  string                    order_id       = 2;  // UUID заказа
+  string                    transaction_id = 3;  // UUID транзакции
+  int64                     amount         = 4;  // Сумма в центах
+  string                    status         = 5;  // "Authorized" или "Declined"
+  google.protobuf.Timestamp created_at     = 6;  // Время создания платежа
+}
